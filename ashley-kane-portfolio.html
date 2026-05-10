@@ -1,0 +1,1560 @@
+<!--
+  ASHLEY KANE — PORTFOLIO
+  =========================================================================
+  HOW TO PASTE INTO WORDPRESS (free plan friendly):
+
+  1. In your WordPress page editor, add a "Custom HTML" block.
+  2. Open this file in a plain-text editor (TextEdit, VS Code, Notepad).
+  3. Copy EVERYTHING from <style> down to the closing </script> tag near
+     the bottom — skip <!DOCTYPE>, <html>, <head>, <body> wrappers.
+  4. Paste into the Custom HTML block. Save / Preview.
+
+  Click-to-open blurbs are pure CSS, so they work even if WordPress
+  strips JavaScript. Iframes for Figma + Vimeo are inside the modals;
+  WordPress.com free generally allows them in Custom HTML blocks.
+
+  IMPORTANT: For the Figma embeds to load for visitors, each Figma
+  file must have sharing set to "Anyone with the link → can view".
+  =========================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashley Kane — Senior Copywriter & Content Strategist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sage: #7FA189;          /* primary green — refreshing, soft */
+    --sage-deep: #4F7560;     /* deeper sage for text/hover */
+    --sage-mid: #6B8F77;
+    --sage-light: #E8F0E5;    /* mint background */
+    --peach: #E89B7B;         /* warm coral accent */
+    --peach-light: #FBE0D2;
+    --butter: #FCF0D7;        /* pale butter highlight */
+    --cream: #FBF7F0;         /* warm off-white */
+    --warm-white: #FFFFFF;
+    --ink: #2D2D29;           /* deep warm charcoal — the new "navy" */
+    --ink-mid: #4A4A44;
+    --ink-light: #8A8980;
+    --border: rgba(45,45,41,0.10);
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(251,247,240,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+  }
+  .nav-logo em { font-style: italic; color: var(--sage-deep); }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    position: relative;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink-mid);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    padding-bottom: 2px;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -2px;
+    width: 100%; height: 2px;
+    background: var(--peach);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.35s ease;
+  }
+  .nav-links a:hover { color: var(--sage-deep); }
+  .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    align-items: center;
+    padding: 100px 5% 60px;
+    gap: 5%;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Floating background blobs */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -8%; right: -10%;
+    width: 50%; height: 90%;
+    background: radial-gradient(closest-side, var(--sage-light) 0%, transparent 75%);
+    z-index: 0;
+    animation: floatA 14s ease-in-out infinite;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -15%; left: -5%;
+    width: 35%; height: 60%;
+    background: radial-gradient(closest-side, var(--peach-light) 0%, transparent 75%);
+    z-index: 0;
+    animation: floatB 18s ease-in-out infinite;
+  }
+  @keyframes floatA {
+    0%, 100% { transform: translate(0,0); }
+    50%      { transform: translate(-20px, 18px); }
+  }
+  @keyframes floatB {
+    0%, 100% { transform: translate(0,0); }
+    50%      { transform: translate(25px, -15px); }
+  }
+
+  .hero-text { position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 36px; height: 1.5px;
+    background: var(--sage);
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(2.6rem, 5.2vw, 4.4rem);
+    line-height: 1.05;
+    color: var(--ink);
+    letter-spacing: -0.025em;
+    margin-bottom: 1.75rem;
+    font-weight: 600;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--sage-deep);
+    position: relative;
+  }
+  /* Hand-drawn underline under the italic phrase */
+  .hero-title em::after {
+    content: '';
+    position: absolute;
+    left: 2%; right: 2%;
+    bottom: -6px;
+    height: 10px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 12' preserveAspectRatio='none'><path d='M3 8 Q 75 2, 150 7 T 297 6' stroke='%23E89B7B' stroke-width='2.5' fill='none' stroke-linecap='round'/></svg>");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    transform-origin: left;
+    animation: drawLine 1.2s 0.9s ease forwards;
+    transform: scaleX(0);
+  }
+  @keyframes drawLine { to { transform: scaleX(1); } }
+
+  /* Word-by-word reveal */
+  .word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(28px);
+    animation: wordIn 0.75s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .word.w1 { animation-delay: 0.05s; }
+  .word.w2 { animation-delay: 0.18s; }
+  .word.w3 { animation-delay: 0.31s; }
+  .word.w4 { animation-delay: 0.44s; }
+  .word.w5 { animation-delay: 0.57s; }
+  .word.w6 { animation-delay: 0.70s; }
+  @keyframes wordIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Blinking copywriter cursor */
+  .caret {
+    display: inline-block;
+    width: 4px;
+    height: 0.95em;
+    background: var(--peach);
+    margin-left: 6px;
+    transform: translateY(2px);
+    animation: blink 1.05s steps(2,end) infinite;
+    opacity: 0;
+    animation-delay: 1.1s;
+    animation-fill-mode: backwards;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .hero-sub {
+    font-size: 1.08rem;
+    color: var(--ink-mid);
+    max-width: 460px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    opacity: 0;
+    animation: wordIn 0.8s 0.85s ease forwards;
+  }
+
+  .hero-ctas {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0;
+    animation: wordIn 0.8s 1.05s ease forwards;
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover {
+    background: var(--sage-deep);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(79,117,96,0.25);
+  }
+
+  .btn-ghost {
+    color: var(--ink);
+    padding: 14px 28px;
+    border: 1.5px solid var(--ink);
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+  .btn-ghost:hover { background: var(--ink); color: #fff; }
+
+  .hero-visual {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-end;
+  }
+
+  .stat-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.4rem 1.6rem;
+    width: 270px;
+    box-shadow: 0 2px 12px rgba(45,45,41,0.04);
+    transition: transform 0.3s ease;
+  }
+  .stat-card:hover { transform: translateY(-4px) rotate(-0.5deg); }
+  .stat-card:nth-child(2) { width: 230px; align-self: flex-start; }
+  .stat-card:nth-child(2):hover { transform: translateY(-4px) rotate(0.7deg); }
+  .stat-card:nth-child(3) { width: 250px; }
+
+  .stat-number {
+    font-family: var(--serif);
+    font-size: 2.1rem;
+    color: var(--sage-deep);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+  }
+
+  .stat-label {
+    font-size: 0.82rem;
+    color: var(--ink-mid);
+    letter-spacing: 0.02em;
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 90px 5%; }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    margin-bottom: 0.85rem;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(1.85rem, 3vw, 2.6rem);
+    color: var(--ink);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  .section-title em { font-style: italic; color: var(--sage-deep); }
+
+  .section-intro {
+    font-size: 1.05rem;
+    color: var(--ink-mid);
+    max-width: 580px;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    background: var(--sage-light);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6%;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .about::before {
+    content: '';
+    position: absolute;
+    top: -20%; right: -10%;
+    width: 360px; height: 360px;
+    border-radius: 50%;
+    background: var(--peach-light);
+    opacity: 0.45;
+    z-index: 0;
+    animation: floatA 16s ease-in-out infinite;
+  }
+  .about > * { position: relative; z-index: 1; }
+
+  .about-body {
+    color: var(--ink-mid);
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.85;
+    margin-bottom: 1.5rem;
+  }
+  .about-body strong { color: var(--ink); font-weight: 500; }
+
+  .about-skills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+
+  .skill-pill {
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 7px 14px;
+    border-radius: 100px;
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    color: var(--ink-mid);
+    letter-spacing: 0.02em;
+    transition: transform 0.2s, background 0.2s, color 0.2s;
+  }
+  .skill-pill:hover {
+    transform: translateY(-2px) rotate(-1deg);
+    background: var(--peach);
+    color: #fff;
+    border-color: var(--peach);
+  }
+
+  .about-timeline {
+    display: flex; flex-direction: column;
+    background: var(--warm-white);
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+    box-shadow: 0 4px 20px rgba(45,45,41,0.04);
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1.5rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .timeline-item:last-child { border-bottom: none; }
+
+  .timeline-year {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--sage-deep);
+    text-transform: uppercase;
+    padding-top: 2px;
+  }
+  .timeline-role {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+  .timeline-co { font-size: 0.85rem; color: var(--ink-light); }
+
+  /* ── WORK ── */
+  .work { background: var(--cream); }
+
+  .work-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3.5rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.4rem;
+  }
+
+  .work-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
+  }
+  .work-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 50px rgba(45,45,41,0.10);
+  }
+
+  .work-card.large { grid-column: span 7; }
+  .work-card.small { grid-column: span 5; }
+  .work-card.third { grid-column: span 4; }
+  .work-card.half  { grid-column: span 6; }
+
+  .card-visual {
+    height: 230px;
+    display: flex;
+    align-items: flex-end;
+    padding: 1.6rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-visual.v-sage { background: linear-gradient(135deg, #7FA189 0%, #4F7560 100%); }
+  .card-visual.v-peach { background: linear-gradient(135deg, #E89B7B 0%, #C97456 100%); }
+  .card-visual.v-mint { background: var(--sage-light); border-bottom: 1px solid var(--border); }
+  .card-visual.v-butter { background: var(--butter); border-bottom: 1px solid var(--border); }
+  .card-visual.v-ink { background: linear-gradient(135deg, #4A4A44 0%, #2D2D29 100%); }
+
+  .card-visual-label {
+    font-family: var(--serif);
+    font-size: 1.45rem;
+    line-height: 1.25;
+    color: rgba(255,255,255,0.96);
+    max-width: 85%;
+    z-index: 1;
+    font-weight: 500;
+  }
+  .card-visual.v-mint .card-visual-label,
+  .card-visual.v-butter .card-visual-label { color: var(--ink); }
+
+  .card-circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.12;
+  }
+
+  .card-play {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.18);
+    border: 1.5px solid rgba(255,255,255,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: transform 0.25s ease, background 0.25s ease;
+  }
+  .work-card:hover .card-play {
+    transform: scale(1.1);
+    background: rgba(255,255,255,0.28);
+  }
+  .card-play::after {
+    content: '';
+    width: 0; height: 0;
+    border-left: 11px solid #fff;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    margin-left: 3px;
+  }
+
+  .card-doc {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.92);
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.32);
+    padding: 5px 11px;
+    border-radius: 100px;
+    z-index: 2;
+  }
+  .card-visual.v-mint .card-doc,
+  .card-visual.v-butter .card-doc {
+    color: var(--ink);
+    background: rgba(45,45,41,0.06);
+    border-color: rgba(45,45,41,0.18);
+  }
+
+  .card-body { padding: 1.6rem; flex: 1; }
+
+  .card-type {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    margin-bottom: 0.7rem;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+    position: relative;
+    display: inline-block;
+  }
+  /* Underline-grow on card title hover */
+  .card-title::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -3px;
+    height: 2px;
+    background: var(--peach);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(.2,.7,.2,1);
+  }
+  .work-card:hover .card-title::after { transform: scaleX(1); }
+
+  .card-desc {
+    font-size: 0.9rem;
+    color: var(--ink-mid);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .card-footer {
+    padding: 1rem 1.6rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+    color: var(--ink-light);
+  }
+
+  .card-cta {
+    margin-left: auto;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--sage-deep);
+    letter-spacing: 0.02em;
+    transition: transform 0.25s ease;
+    display: inline-block;
+  }
+  .work-card:hover .card-cta { transform: translateX(4px); }
+
+  .tag {
+    font-size: 0.72rem;
+    padding: 4px 11px;
+    border-radius: 100px;
+    background: var(--sage-light);
+    color: var(--sage-deep);
+    font-weight: 500;
+  }
+  .tag.alt { background: var(--peach-light); color: #B05A3A; }
+
+  /* ── MODAL (pure CSS via :target) ── */
+  .modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(45,45,41,0.78);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    padding: 4% 4%;
+    overflow-y: auto;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .modal:target { opacity: 1; pointer-events: auto; }
+
+  .modal-overlay { position: absolute; inset: 0; z-index: 0; }
+
+  .modal-content {
+    position: relative;
+    z-index: 1;
+    background: var(--cream);
+    max-width: 860px;
+    width: 100%;
+    padding: 3rem;
+    border-radius: 14px;
+    box-shadow: 0 30px 80px rgba(45,45,41,0.30);
+    margin: auto 0;
+    transform: translateY(20px);
+    transition: transform 0.35s cubic-bezier(.2,.7,.2,1);
+  }
+  .modal:target .modal-content { transform: translateY(0); }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--warm-white);
+    color: var(--ink);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    line-height: 1;
+    transition: background 0.2s, transform 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .modal-close:hover { background: var(--peach-light); transform: rotate(90deg); }
+
+  .modal-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    margin-bottom: 0.7rem;
+  }
+
+  .modal-title {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+    color: var(--ink);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+  }
+
+  .modal-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.75rem; }
+
+  .modal-body p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--ink-mid);
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+  .modal-body p strong { font-weight: 500; color: var(--ink); }
+
+  .modal-section {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+  .modal-section-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-embed {
+    position: relative;
+    margin: 1.5rem 0;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--ink);
+    box-shadow: 0 10px 30px rgba(45,45,41,0.18);
+  }
+  .modal-embed iframe {
+    display: block;
+    width: 100%;
+    height: 460px;
+    border: none;
+  }
+  @media (max-width: 700px) {
+    .modal-embed iframe { height: 280px; }
+  }
+
+  .modal-link {
+    display: inline-block;
+    margin-top: 0.75rem;
+    padding: 11px 22px;
+    background: var(--sage-deep);
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    border-radius: 100px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .modal-link:hover { background: var(--ink); transform: translateY(-2px); }
+
+  /* ── SPECIALTIES ── */
+  .specialties {
+    background: var(--warm-white);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .spec-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 3rem;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .spec-item {
+    padding: 2rem;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.25s;
+  }
+  .spec-item:hover { background: var(--sage-light); }
+  .spec-item:nth-child(3n) { border-right: none; }
+  .spec-item:nth-child(4), .spec-item:nth-child(5), .spec-item:nth-child(6) { border-bottom: none; }
+
+  .spec-icon {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--peach-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+    color: var(--peach);
+    transition: transform 0.4s ease;
+  }
+  .spec-item:hover .spec-icon {
+    transform: rotate(90deg) scale(1.1);
+    background: var(--peach);
+    color: #fff;
+  }
+
+  .spec-name {
+    font-size: 0.98rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+
+  .spec-desc {
+    font-size: 0.87rem;
+    color: var(--ink-mid);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* ── QUOTE ── */
+  .quote-section {
+    background: var(--butter);
+    padding: 90px 10%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .quote-section::before {
+    content: '"';
+    position: absolute;
+    top: -40px; left: 5%;
+    font-family: var(--serif);
+    font-size: 16rem;
+    color: var(--peach);
+    opacity: 0.18;
+    line-height: 1;
+    font-style: italic;
+  }
+  .quote-section::after {
+    content: '"';
+    position: absolute;
+    bottom: -120px; right: 5%;
+    font-family: var(--serif);
+    font-size: 16rem;
+    color: var(--peach);
+    opacity: 0.18;
+    line-height: 1;
+    font-style: italic;
+  }
+
+  .quote-text {
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+    color: var(--ink);
+    line-height: 1.5;
+    max-width: 760px;
+    margin: 0 auto 1.5rem;
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+    font-weight: 400;
+  }
+
+  .quote-attr {
+    font-size: 0.85rem;
+    color: var(--sage-deep);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── MARQUEE (fun copywriter ticker) ── */
+  .marquee {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 1.4rem 0;
+    overflow: hidden;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 3rem;
+    white-space: nowrap;
+    animation: marquee 38s linear infinite;
+    width: max-content;
+  }
+  .marquee span {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--cream);
+  }
+  .marquee span::before {
+    content: '✦';
+    color: var(--peach);
+    margin-right: 3rem;
+    font-style: normal;
+  }
+  @keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ── CONTACT ── */
+  .contact {
+    background: var(--cream);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8%;
+    align-items: start;
+  }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-field label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+  }
+
+  .form-field input,
+  .form-field textarea,
+  .form-field select {
+    padding: 13px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    color: var(--ink);
+    background: var(--warm-white);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    resize: none;
+    width: 100%;
+  }
+
+  .form-field input:focus,
+  .form-field textarea:focus,
+  .form-field select:focus {
+    border-color: var(--sage);
+    box-shadow: 0 0 0 4px var(--sage-light);
+  }
+
+  .form-field textarea { min-height: 130px; }
+
+  .contact-block { margin-bottom: 1.75rem; }
+  .contact-block-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 0.4rem;
+  }
+  .contact-block-val {
+    font-size: 0.98rem;
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .contact-block-val:hover { color: var(--sage-deep); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    padding: 2.25rem 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.45); }
+  .footer-logo {
+    font-family: var(--serif);
+    color: rgba(255,255,255,0.85);
+    font-size: 1rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-style: italic;
+  }
+
+  /* ── FADE IN (progressive enhancement) ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible,
+  .no-js .fade-up { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero, .about, .contact { grid-template-columns: 1fr; }
+    .hero { padding-top: 90px; }
+    .hero-visual { flex-direction: row; flex-wrap: wrap; justify-content: flex-start; }
+    .stat-card, .stat-card:nth-child(2), .stat-card:nth-child(3) { width: 48%; }
+    .work-card.large, .work-card.small, .work-card.third, .work-card.half { grid-column: span 12; }
+    .spec-grid { grid-template-columns: repeat(2, 1fr); }
+    .spec-item:nth-child(3n) { border-right: 1px solid var(--border); }
+    .spec-item:nth-child(2n) { border-right: none; }
+    .spec-item:nth-child(5), .spec-item:nth-child(6) { border-bottom: none; }
+    .form-row { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .modal-content { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body class="no-js">
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Ashley <em>Kane</em></a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#specialties">Specialties</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="btn-primary" style="padding:10px 20px;font-size:0.8rem;">Let's talk</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Senior Copywriter &amp; Content Strategist</p>
+    <h1 class="hero-title">
+      <span class="word w1">Healthcare</span>
+      <span class="word w2">copy</span><br>
+      <em><span class="word w3">with</span> <span class="word w4">a</span> <span class="word w5">pulse.</span></em><span class="caret"></span>
+    </h1>
+    <p class="hero-sub">10 years writing behavioral health, telehealth, and wellness copy that connects, converts, and earns trust at the moments that matter most.</p>
+    <div class="hero-ctas">
+      <a href="#work" class="btn-primary">See the work</a>
+      <a href="#contact" class="btn-ghost">Get in touch</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="stat-card fade-up" style="transition-delay:0.1s">
+      <div class="stat-number">10+</div>
+      <div class="stat-label">Years in healthcare &amp; telehealth</div>
+    </div>
+    <div class="stat-card fade-up" style="transition-delay:0.25s">
+      <div class="stat-number">B2C &amp; B2B</div>
+      <div class="stat-label">Member, clinician &amp; partner audiences</div>
+    </div>
+    <div class="stat-card fade-up" style="transition-delay:0.4s">
+      <div class="stat-number">Full-funnel</div>
+      <div class="stat-label">Awareness through retention</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div>
+    <p class="section-label">About</p>
+    <h2 class="section-title">Healthcare copy<br>with a <em>human heart</em></h2>
+    <p class="about-body">
+      I'm a senior copywriter and content strategist specializing in <strong>behavioral health, telehealth, and wellness</strong>. For a decade, I've helped brands like Brightside Health and Amwell turn complex care into clear, compelling copy — from brand books and messaging frameworks to campaigns that move people to act.
+    </p>
+    <p class="about-body">
+      My work sits at the intersection of strategy and craft. I don't just write words — I build <strong>voice systems</strong>, lead cross-functional creative, and develop content that earns trust at the moments that matter most.
+    </p>
+    <div class="about-skills">
+      <span class="skill-pill">Brand Voice</span>
+      <span class="skill-pill">Content Strategy</span>
+      <span class="skill-pill">Email Campaigns</span>
+      <span class="skill-pill">B2C &amp; B2B</span>
+      <span class="skill-pill">Behavioral Health</span>
+      <span class="skill-pill">Messaging Frameworks</span>
+      <span class="skill-pill">Campaign Concepting</span>
+    </div>
+  </div>
+  <div class="about-timeline fade-up">
+    <div class="timeline-item">
+      <span class="timeline-year">2023–present</span>
+      <div>
+        <div class="timeline-role">Lead Copywriter</div>
+        <div class="timeline-co">Brightside Health</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-year">2021–2023</span>
+      <div>
+        <div class="timeline-role">Senior Copywriter</div>
+        <div class="timeline-co">Brightside Health</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-year">2019–2021</span>
+      <div>
+        <div class="timeline-role">Editorial Manager / Copywriter</div>
+        <div class="timeline-co">Amwell</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-year">2017–2018</span>
+      <div>
+        <div class="timeline-role">Content Writer</div>
+        <div class="timeline-co">Orig3n</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-year">2015–2017</span>
+      <div>
+        <div class="timeline-role">Copywriter</div>
+        <div class="timeline-co">EverQuote</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="work" id="work">
+  <div class="work-header">
+    <div>
+      <p class="section-label">Selected Work</p>
+      <h2 class="section-title">Copy that <em>earns its keep</em></h2>
+    </div>
+    <p class="section-intro" style="font-size:0.95rem;max-width:340px;">A handful of recent pieces from my time at Brightside Health — broadcast, web, and long-form. Click any card for the story behind it.</p>
+  </div>
+
+  <div class="work-grid">
+
+    <!-- 1. Homepage Redesign — large -->
+    <a href="#piece-homepage" class="work-card large fade-up">
+      <div class="card-visual v-sage">
+        <div class="card-circle" style="width:300px;height:300px;background:#fff;bottom:-80px;right:-60px;"></div>
+        <div class="card-circle" style="width:160px;height:160px;background:var(--peach);top:-40px;right:80px;opacity:0.25;"></div>
+        <div class="card-visual-label">The front door<br>to the brand</div>
+      </div>
+      <div class="card-body">
+        <div class="card-type">Brand &amp; Web Copy</div>
+        <div class="card-title">Brightside Health Homepage Redesign</div>
+        <div class="card-desc">Led the copy for Brightside's homepage relaunch — the highest-trafficked, highest-stakes page on the site. Rewrote the hero, value prop, and section headers to land the company's full evolved offering without overwhelming first-time visitors.</div>
+      </div>
+      <div class="card-footer">
+        <span class="tag">Web Copy</span>
+        <span class="tag">Brand Voice</span>
+        <span class="tag alt">Conversion</span>
+        <span class="card-cta">Read more →</span>
+      </div>
+    </a>
+
+    <!-- 2. CTV Medicare Ad — small -->
+    <a href="#piece-ctv" class="work-card small fade-up" style="transition-delay:0.15s">
+      <div class="card-visual v-ink">
+        <div class="card-play"></div>
+        <div class="card-circle" style="width:240px;height:240px;background:var(--peach);bottom:-60px;left:-40px;opacity:0.2;"></div>
+        <div class="card-visual-label">A 30-second invitation<br>to feel better</div>
+      </div>
+      <div class="card-body">
+        <div class="card-type">Performance Marketing</div>
+        <div class="card-title">CTV 30s — Medicare 2024 Campaign</div>
+        <div class="card-desc">A connected-TV spot reaching older adults navigating mental health support through Medicare Advantage — empathy first, clear next steps second.</div>
+      </div>
+      <div class="card-footer">
+        <span class="tag">CTV</span>
+        <span class="tag">Video</span>
+        <span class="tag alt">Medicare</span>
+        <span class="card-cta">Watch it →</span>
+      </div>
+    </a>
+
+    <!-- 3. IOP Top-Level Page — small (mirrors row 1) -->
+    <a href="#piece-iop-page" class="work-card small fade-up" style="transition-delay:0.05s">
+      <div class="card-visual v-peach">
+        <div class="card-doc">PAGE</div>
+        <div class="card-circle" style="width:240px;height:240px;background:#fff;bottom:-70px;right:-50px;"></div>
+        <div class="card-visual-label">A clinically rigorous<br>program, in plain English</div>
+      </div>
+      <div class="card-body">
+        <div class="card-type">Product &amp; Web Copy</div>
+        <div class="card-title">IOP Top-Level Page — Program Launch</div>
+        <div class="card-desc">Consumer-facing landing page for Brightside's new virtual Intensive Outpatient Program — translating a complex clinical offering into language patients and families can grasp at a glance.</div>
+      </div>
+      <div class="card-footer">
+        <span class="tag">Web Copy</span>
+        <span class="tag">Product Launch</span>
+        <span class="tag alt">IOP</span>
+        <span class="card-cta">Read more →</span>
+      </div>
+    </a>
+
+    <!-- 4. Learn-Insurance Page — large -->
+    <a href="#piece-insurance" class="work-card large fade-up" style="transition-delay:0.15s">
+      <div class="card-visual v-mint">
+        <div class="card-doc">PAGE</div>
+        <div class="card-visual-label">"Does insurance cover this?"<br>— answered, in plain English</div>
+      </div>
+      <div class="card-body">
+        <div class="card-type">Conversion Copy</div>
+        <div class="card-title">Learn — Insurance Education Page</div>
+        <div class="card-desc">A high-traffic SEO and conversion page that turns dense insurance language into plain-English answers about coverage, copays, and what people actually pay. Coordinated across product, design, growth, and compliance.</div>
+      </div>
+      <div class="card-footer">
+        <span class="tag">Web Copy</span>
+        <span class="tag alt">SEO</span>
+        <span class="tag">B2C</span>
+        <span class="card-cta">Read more →</span>
+      </div>
+    </a>
+
+    <!-- 5. MHQS White Paper — half -->
+    <a href="#piece-mhqs" class="work-card half fade-up" style="transition-delay:0.05s">
+      <div class="card-visual v-sage">
+        <div class="card-doc">WHITE PAPER</div>
+        <div class="card-circle" style="width:200px;height:200px;background:#fff;bottom:-50px;left:-30px;"></div>
+        <div class="card-visual-label">Measure What Matters</div>
+      </div>
+      <div class="card-body">
+        <div class="card-type">Thought Leadership</div>
+        <div class="card-title">Mental Health Quality Scorecard</div>
+        <div class="card-desc">A 24-page framework for evaluating mental health providers — translating clinical and operational rigor into a B2B narrative health plans and systems can actually use.</div>
+      </div>
+      <div class="card-footer">
+        <span class="tag">White Paper</span>
+        <span class="tag alt">B2B</span>
+        <span class="card-cta">Read more →</span>
+      </div>
+    </a>
+
+    <!-- 6. The New IOP White Paper — half -->
+    <a href="#piece-iop" class="work-card half fade-up" style="transition-delay:0.15s">
+      <div class="card-visual v-butter">
+        <div class="card-doc">WHITE PAPER</div>
+        <div class="card-visual-label">The New IOP: a clearer path</div>
+      </div>
+      <div class="card-body">
+        <div class="card-type">Thought Leadership</div>
+        <div class="card-title">The New IOP — Virtual Care White Paper</div>
+        <div class="card-desc">A thought leadership paper making the clinical and financial case for technology-enabled Intensive Outpatient Programs — from CEO letter through evidence base.</div>
+      </div>
+      <div class="card-footer">
+        <span class="tag">White Paper</span>
+        <span class="tag alt">Clinical</span>
+        <span class="card-cta">Read more →</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ── MODALS (pure-CSS, opened via :target) ── -->
+
+<div id="piece-homepage" class="modal">
+  <a href="#work" class="modal-overlay" aria-label="Close"></a>
+  <div class="modal-content">
+    <a href="#work" class="modal-close" aria-label="Close">×</a>
+    <p class="modal-eyebrow">Brand &amp; Web Copy · Brightside Health</p>
+    <h3 class="modal-title">Homepage Redesign</h3>
+    <div class="modal-meta">
+      <span class="tag">Web Copy</span>
+      <span class="tag">Brand Voice</span>
+      <span class="tag alt">Cross-Functional</span>
+    </div>
+    <div class="modal-embed">
+      <iframe src="https://embed.figma.com/proto/nnOPuCqvcDEPdvRTMVUXat/Homepage-Refresh---Brightside?node-id=2001-11640&scaling=min-zoom&content-scaling=fixed&hide-ui=1&embed-host=share" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <a href="https://www.figma.com/proto/nnOPuCqvcDEPdvRTMVUXat/Homepage-Refresh---Brightside?node-id=2001-11640&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1" target="_blank" rel="noopener" class="modal-link">Open prototype in new tab →</a>
+    <div class="modal-body" style="margin-top:1.75rem;">
+      <p>The Brightside Health homepage is the front door to the brand — and over the last few years, the company's offering had grown well beyond what the original page could carry. Therapy, psychiatry, Crisis Care, and a new IOP all needed a place to live without overwhelming a first-time visitor in a vulnerable moment.</p>
+      <p>I led the copy for the homepage redesign end-to-end: <strong>hero, value prop, section headers, proof points, and CTAs</strong>. Worked closely with design, product, growth, and brand to make sure the words and the experience said the same thing — and rewrote toward clarity in every round.</p>
+      <p>The goal: a page that meets people where they are, signals legitimacy fast, and routes them to the right level of care without making them work for it.</p>
+      <div class="modal-section">
+        <p class="modal-section-label">My role</p>
+        <p style="margin:0;">Lead copywriter — concepting, drafting, stakeholder review, final copy.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="piece-ctv" class="modal">
+  <a href="#work" class="modal-overlay" aria-label="Close"></a>
+  <div class="modal-content">
+    <a href="#work" class="modal-close" aria-label="Close">×</a>
+    <p class="modal-eyebrow">Performance Marketing · Brightside Health</p>
+    <h3 class="modal-title">CTV 30-Second Spot — Medicare 2024 Campaign</h3>
+    <div class="modal-meta">
+      <span class="tag">CTV</span>
+      <span class="tag">Video Script</span>
+      <span class="tag alt">Medicare</span>
+    </div>
+    <div class="modal-embed">
+      <iframe src="https://player.vimeo.com/video/1190964618?title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <a href="https://vimeo.com/1190964618" target="_blank" rel="noopener" class="modal-link">Watch on Vimeo →</a>
+    <div class="modal-body" style="margin-top:1.75rem;">
+      <p>A 30-second connected-TV spot built for Brightside Health's 2024 Medicare push — reaching older adults navigating mental health support through Medicare Advantage. An audience that's chronically underserved in mental health marketing, and one that doesn't respond to the same playbook as a 28-year-old scrolling Instagram.</p>
+      <p>I wrote the script and shaped storyboard direction with the creative team, leading with <strong>empathy and recognition</strong> before moving into clear, low-friction next steps. The spot needed to feel like a trustworthy neighbor, not a pitch — and clear the bar for both compliance and conversion.</p>
+      <div class="modal-section">
+        <p class="modal-section-label">My role</p>
+        <p style="margin:0;">Script, voiceover, on-screen copy, and creative direction in partnership with video producer.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="piece-iop-page" class="modal">
+  <a href="#work" class="modal-overlay" aria-label="Close"></a>
+  <div class="modal-content">
+    <a href="#work" class="modal-close" aria-label="Close">×</a>
+    <p class="modal-eyebrow">Product &amp; Web Copy · Brightside Health</p>
+    <h3 class="modal-title">IOP Top-Level Page — Program Launch</h3>
+    <div class="modal-meta">
+      <span class="tag">Web Copy</span>
+      <span class="tag">Product Launch</span>
+      <span class="tag alt">IOP</span>
+    </div>
+    <div class="modal-embed">
+      <iframe src="https://embed.figma.com/proto/uhGemaU9gboUITXbHUT7R9/Intensive-Outpatient-Programs---Top-Level-Web-Page?node-id=1-4873&scaling=min-zoom&content-scaling=fixed&hide-ui=1&embed-host=share" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <a href="https://www.figma.com/proto/uhGemaU9gboUITXbHUT7R9/Intensive-Outpatient-Programs---Top-Level-Web-Page?node-id=1-4873&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1" target="_blank" rel="noopener" class="modal-link">Open prototype in new tab →</a>
+    <div class="modal-body" style="margin-top:1.75rem;">
+      <p>The consumer-facing front door for a brand-new clinical offering: Brightside Health's virtual Intensive Outpatient Program. IOP sits at a high level of clinical intensity — the kind of care people only consider when something serious is going on — so the page had to balance <strong>seriousness, hope, and approachability</strong> without slipping into either pamphlet-speak or false reassurance.</p>
+      <p>I shaped the message hierarchy, hero, value props, program description, and proof points to translate a clinically rigorous program into language patients and families could grasp at a glance. Worked alongside the IOP launch team — clinical, product, design, growth — to ship the page in time for launch and align it with the broader IOP narrative across white paper, sales collateral, and lifecycle.</p>
+      <div class="modal-section">
+        <p class="modal-section-label">My role</p>
+        <p style="margin:0;">Lead copywriter — content strategy, drafting, clinical &amp; legal review, design partnership.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="piece-insurance" class="modal">
+  <a href="#work" class="modal-overlay" aria-label="Close"></a>
+  <div class="modal-content">
+    <a href="#work" class="modal-close" aria-label="Close">×</a>
+    <p class="modal-eyebrow">Conversion Copy · Brightside Health</p>
+    <h3 class="modal-title">Learn — Insurance Education Page</h3>
+    <div class="modal-meta">
+      <span class="tag">Web Copy</span>
+      <span class="tag alt">SEO</span>
+      <span class="tag">B2C</span>
+    </div>
+    <div class="modal-embed">
+      <iframe src="https://embed.figma.com/proto/ecwLfwNz5r4Ntel2ZI7ut9/Untitled?node-id=1-2994&scaling=min-zoom&content-scaling=fixed&hide-ui=1&embed-host=share" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <a href="https://www.figma.com/proto/ecwLfwNz5r4Ntel2ZI7ut9/Untitled?node-id=1-2994&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1" target="_blank" rel="noopener" class="modal-link">Open prototype in new tab →</a>
+    <div class="modal-body" style="margin-top:1.75rem;">
+      <p>"Does insurance cover this?" is one of the very first questions someone asks when they're considering mental health care. The Learn–Insurance page is built to answer it — and to do it in plain English, without the jargon or weasel words that make most insurance pages a slog.</p>
+      <p>I wrote the latest update to this page: explaining <strong>coverage, copays, in-network care, and what people actually pay</strong>, with answers calibrated to the most common search queries. Coordinated with product, design, growth, and compliance so the page would build trust, rank well, and reduce drop-off in the sign-up flow.</p>
+      <div class="modal-section">
+        <p class="modal-section-label">My role</p>
+        <p style="margin:0;">Lead copywriter — content strategy, drafting, SEO collaboration, compliance review.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="piece-mhqs" class="modal">
+  <a href="#work" class="modal-overlay" aria-label="Close"></a>
+  <div class="modal-content">
+    <a href="#work" class="modal-close" aria-label="Close">×</a>
+    <p class="modal-eyebrow">Thought Leadership · Brightside Health</p>
+    <h3 class="modal-title">Measure What Matters: A Framework for Quality Mental Health Care</h3>
+    <div class="modal-meta">
+      <span class="tag">White Paper</span>
+      <span class="tag alt">B2B</span>
+      <span class="tag">Clinical</span>
+    </div>
+    <div class="modal-body">
+      <p>A 24-page white paper introducing the <strong>Mental Health Quality Scorecard (MHQS)</strong> — a 9-category, point-based framework health plans, health systems, and providers can use to evaluate the actual quality of mental health care, not just access to it.</p>
+      <p>I wrote the paper alongside Brightside's clinical and quality teams: structuring the argument, drafting the executive summary, translating internal scoring methodology into a story that stands up in front of payer and partner audiences, and grounding it in Brightside's own scorecard performance to walk the talk.</p>
+      <p>This is a foundation piece for enterprise sales conversations — the kind of asset that opens doors and reframes a conversation in the same meeting.</p>
+      <a href="https://brightside.com/downloads/scorecards/Brightside-Mental-Health-Quality-Scorecard-Whitepaper.pdf" target="_blank" rel="noopener" class="modal-link" style="margin-top:1.25rem;">Read the white paper (PDF) →</a>
+      <div class="modal-section">
+        <p class="modal-section-label">My role</p>
+        <p style="margin:0;">Lead writer — outline, drafting, SME interviews, editing, design partnership.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="piece-iop" class="modal">
+  <a href="#work" class="modal-overlay" aria-label="Close"></a>
+  <div class="modal-content">
+    <a href="#work" class="modal-close" aria-label="Close">×</a>
+    <p class="modal-eyebrow">Thought Leadership · Brightside Health</p>
+    <h3 class="modal-title">The New IOP: Technology-Enabled Care for Measurable Clinical and Financial Impact</h3>
+    <div class="modal-meta">
+      <span class="tag">White Paper</span>
+      <span class="tag alt">B2B</span>
+      <span class="tag">Clinical</span>
+    </div>
+    <div class="modal-body">
+      <p>A thought leadership paper making the case for virtual Intensive Outpatient Programs as a high-value, evidence-based piece of the behavioral health care continuum — when they're built with strong clinical controls and supported by technology, data, and measurement.</p>
+      <p>I drafted the <strong>CEO's executive letter</strong>, structured the clinical and financial argument, and shaped the case for measurement-based care without losing the human story underneath: families, care coordinators, and clinicians stuck in a system where access has expanded but step-down care hasn't kept up.</p>
+      <p>The paper supports Brightside's enterprise IOP launch with payer and health system partners — and gives the sales team a credible, clinically grounded leave-behind.</p>
+      <a href="https://brightside.com/downloads/whitepapers/brightside-iop-program.pdf" target="_blank" rel="noopener" class="modal-link" style="margin-top:1.25rem;">Read the white paper (PDF) →</a>
+      <div class="modal-section">
+        <p class="modal-section-label">My role</p>
+        <p style="margin:0;">Lead writer — exec letter ghostwriting, paper structure, SME synthesis, editing.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUOTE PULL -->
+<section class="quote-section">
+  <p class="quote-text">The best health copy doesn't just communicate — it earns trust exactly when someone needs it most.</p>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Brand voice</span>
+    <span>Email campaigns</span>
+    <span>White papers</span>
+    <span>Web copy</span>
+    <span>Product/UX copy</span>
+    <span>CTV &amp; video</span>
+    <span>Messaging frameworks</span>
+    <span>Behavioral health</span>
+    <span>B2B &amp; B2C</span>
+    <!-- Duplicated for seamless loop -->
+    <span>Brand voice</span>
+    <span>Email campaigns</span>
+    <span>White papers</span>
+    <span>Web copy</span>
+    <span>Product/UX copy</span>
+    <span>CTV &amp; video</span>
+    <span>Messaging frameworks</span>
+    <span>Behavioral health</span>
+    <span>B2B &amp; B2C</span>
+  </div>
+</div>
+
+<!-- SPECIALTIES -->
+<section class="specialties" id="specialties">
+  <p class="section-label">What I do</p>
+  <h2 class="section-title">Where I add the <em>most value</em></h2>
+  <div class="spec-grid">
+    <div class="spec-item fade-up">
+      <div class="spec-icon">✦</div>
+      <div class="spec-name">Brand Voice &amp; Tone Systems</div>
+      <div class="spec-desc">From foundational brand books to audience-specific tone guides and style docs that keep teams aligned.</div>
+    </div>
+    <div class="spec-item fade-up" style="transition-delay:0.1s">
+      <div class="spec-icon">✦</div>
+      <div class="spec-name">Behavioral Health Copy</div>
+      <div class="spec-desc">10 years writing with empathy for people navigating anxiety, depression, and mental healthcare decisions.</div>
+    </div>
+    <div class="spec-item fade-up" style="transition-delay:0.2s">
+      <div class="spec-icon">✦</div>
+      <div class="spec-name">Full-Funnel Campaign Copy</div>
+      <div class="spec-desc">Awareness ads through onboarding emails — cohesive messaging across every stage of the member journey.</div>
+    </div>
+    <div class="spec-item fade-up" style="transition-delay:0.05s">
+      <div class="spec-icon">✦</div>
+      <div class="spec-name">B2B &amp; Partner Messaging</div>
+      <div class="spec-desc">Strategic copy for health system, health plan, and referral partner audiences — pitching, educating, converting.</div>
+    </div>
+    <div class="spec-item fade-up" style="transition-delay:0.15s">
+      <div class="spec-icon">✦</div>
+      <div class="spec-name">Content Strategy &amp; Frameworks</div>
+      <div class="spec-desc">Messaging architectures, content pillars, and editorial structures that give teams a north star to write toward.</div>
+    </div>
+    <div class="spec-item fade-up" style="transition-delay:0.25s">
+      <div class="spec-icon">✦</div>
+      <div class="spec-name">Cross-Functional Creative Leadership</div>
+      <div class="spec-desc">Partnering with growth, product, clinical, and design teams to ship high-quality creative — on deadline, at scale.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div>
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Let's create something <em>worth reading</em></h2>
+    <p class="section-intro" style="margin-bottom:2rem;">Whether you need a freelance copywriter, a brand voice overhaul, or a campaign built from scratch — I'd love to hear about it.</p>
+    <div class="contact-block">
+      <div class="contact-block-label">Email</div>
+      <a href="mailto:amkane14@gmail.com" class="contact-block-val">amkane14@gmail.com</a>
+    </div>
+    <div class="contact-block">
+      <div class="contact-block-label">Phone</div>
+      <a href="tel:5085602000" class="contact-block-val">508.560.2000</a>
+    </div>
+    <div class="contact-block">
+      <div class="contact-block-label">LinkedIn</div>
+      <a href="https://linkedin.com/in/ashley-kane" target="_blank" rel="noopener" class="contact-block-val">linkedin.com/in/ashley-kane</a>
+    </div>
+    <div class="contact-block">
+      <div class="contact-block-label">Portfolio</div>
+      <a href="https://ashleymkane.com" target="_blank" rel="noopener" class="contact-block-val">ashleymkane.com</a>
+    </div>
+  </div>
+
+  <div class="fade-up">
+    <form class="contact-form" action="mailto:amkane14@gmail.com" method="post" enctype="text/plain">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="fname">First name</label>
+          <input type="text" id="fname" name="First name" placeholder="Jane" required>
+        </div>
+        <div class="form-field">
+          <label for="lname">Last name</label>
+          <input type="text" id="lname" name="Last name" placeholder="Smith">
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="Email" placeholder="jane@company.com" required>
+      </div>
+      <div class="form-field">
+        <label for="project">Project type</label>
+        <select id="project" name="Project type">
+          <option value="">Select a project type…</option>
+          <option>Brand voice / messaging framework</option>
+          <option>Email campaign</option>
+          <option>Ad copy</option>
+          <option>Website copy</option>
+          <option>White paper / thought leadership</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="message">Tell me about your project</label>
+        <textarea id="message" name="Message" placeholder="A little about your goals, timeline, and what you're looking for…"></textarea>
+      </div>
+      <button type="submit" class="btn-primary" style="align-self:flex-start;cursor:pointer;border:none;font-family:var(--sans);">Send message →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-copy">© 2026 Ashley Kane. All rights reserved.</span>
+  <a href="#" class="footer-logo">Ashley Kane</a>
+</footer>
+
+<script>
+  document.body.classList.remove('no-js');
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(function(el){ observer.observe(el); });
+  } else {
+    document.querySelectorAll('.fade-up').forEach(function(el){ el.classList.add('visible'); });
+  }
+  // Close modal on Escape
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && location.hash.indexOf('#piece-') === 0) {
+      history.replaceState(null, '', '#work');
+    }
+  });
+</script>
+
+</body>
+</html>
