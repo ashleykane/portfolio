@@ -46,7 +46,7 @@
     --sans: 'DM Sans', system-ui, sans-serif;
   }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
 
   body {
     font-family: var(--sans);
@@ -55,6 +55,9 @@
     font-size: 16px;
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
   }
 
   /* ── NAV ── */
@@ -628,23 +631,24 @@
   }
   .tag.alt { background: var(--peach-light); color: #B05A3A; }
 
-  /* ── MODAL (pure CSS via :target) ── */
+  /* ── MODAL (pure CSS via :target) ──
+     display:none by default so iframes inside don't load on page open
+     (critical for mobile — Figma/Vimeo embeds will crash Safari otherwise) */
   .modal {
+    display: none;
     position: fixed;
     inset: 0;
     background: rgba(45,45,41,0.78);
+    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
     z-index: 1000;
     padding: 4% 4%;
     overflow-y: auto;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease;
-    display: flex;
+    -webkit-overflow-scrolling: touch;
     align-items: flex-start;
     justify-content: center;
   }
-  .modal:target { opacity: 1; pointer-events: auto; }
+  .modal:target { display: flex; }
 
   .modal-overlay { position: absolute; inset: 0; z-index: 0; }
 
@@ -658,10 +662,12 @@
     border-radius: 14px;
     box-shadow: 0 30px 80px rgba(45,45,41,0.30);
     margin: auto 0;
-    transform: translateY(20px);
-    transition: transform 0.35s cubic-bezier(.2,.7,.2,1);
+    animation: modalIn 0.35s cubic-bezier(.2,.7,.2,1);
   }
-  .modal:target .modal-content { transform: translateY(0); }
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 
   .modal-close {
     position: absolute;
@@ -730,8 +736,8 @@
     margin: 1.5rem 0;
     border-radius: 10px;
     overflow: hidden;
-    background: var(--ink);
-    box-shadow: 0 10px 30px rgba(45,45,41,0.18);
+    background: var(--sage-light);
+    box-shadow: 0 10px 30px rgba(45,45,41,0.10);
   }
   .modal-embed iframe {
     display: block;
@@ -879,6 +885,7 @@
     overflow: hidden;
     border-top: 1px solid var(--ink);
     border-bottom: 1px solid var(--ink);
+    max-width: 100vw;
   }
   .marquee-track {
     display: flex;
@@ -908,49 +915,30 @@
   /* ── CONTACT ── */
   .contact {
     background: var(--cream);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8%;
-    align-items: start;
+    display: flex;
+    justify-content: center;
+    text-align: center;
   }
 
-  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
-  .form-field label {
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--ink-mid);
-  }
-
-  .form-field input,
-  .form-field textarea,
-  .form-field select {
-    padding: 13px 16px;
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    font-family: var(--sans);
-    font-size: 0.9rem;
-    color: var(--ink);
-    background: var(--warm-white);
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    resize: none;
+  .contact-inner {
+    max-width: 640px;
     width: 100%;
   }
+  .contact .section-label { text-align: center; }
+  .contact .section-intro { margin-left: auto; margin-right: auto; }
 
-  .form-field input:focus,
-  .form-field textarea:focus,
-  .form-field select:focus {
-    border-color: var(--sage);
-    box-shadow: 0 0 0 4px var(--sage-light);
+  .contact-blocks {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+    padding: 2rem;
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
   }
 
-  .form-field textarea { min-height: 130px; }
-
-  .contact-block { margin-bottom: 1.75rem; }
+  .contact-block { margin-bottom: 0; }
   .contact-block-label {
     font-size: 0.7rem;
     font-weight: 600;
@@ -997,18 +985,50 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
-    .hero, .about, .contact { grid-template-columns: 1fr; }
-    .hero { padding-top: 90px; }
-    .hero-visual { flex-direction: row; flex-wrap: wrap; justify-content: flex-start; }
-    .stat-card, .stat-card:nth-child(2), .stat-card:nth-child(3) { width: 48%; }
+    .hero, .about { grid-template-columns: 1fr; }
+    .contact-blocks { grid-template-columns: 1fr; gap: 1.25rem; padding: 1.5rem; }
+    .hero {
+      padding: 90px 5% 50px;
+      min-height: auto;
+      gap: 3rem;
+    }
+    .hero::before, .hero::after { display: none; }
+    .hero-visual { flex-direction: row; flex-wrap: wrap; justify-content: flex-start; gap: 0.75rem; }
+    .stat-card, .stat-card:nth-child(2), .stat-card:nth-child(3) { width: 100%; }
     .work-card.large, .work-card.small, .work-card.third, .work-card.half { grid-column: span 12; }
     .spec-grid { grid-template-columns: repeat(2, 1fr); }
     .spec-item:nth-child(3n) { border-right: 1px solid var(--border); }
     .spec-item:nth-child(2n) { border-right: none; }
     .spec-item:nth-child(5), .spec-item:nth-child(6) { border-bottom: none; }
-    .form-row { grid-template-columns: 1fr; }
     .nav-links { display: none; }
-    .modal-content { padding: 2rem 1.5rem; }
+    .modal { padding: 2% 2%; }
+    .modal-content { padding: 2rem 1.25rem; border-radius: 10px; }
+    .modal-embed iframe { height: 280px; }
+    section { padding: 60px 5%; }
+    .quote-section { padding: 60px 6%; }
+    .quote-section::before, .quote-section::after { font-size: 8rem; }
+    .marquee span { font-size: 1.2rem; }
+    .about-timeline { padding: 0.5rem 1rem; }
+    .timeline-item { grid-template-columns: 90px 1fr; gap: 1rem; padding: 1rem 0; }
+  }
+  @media (max-width: 480px) {
+    .hero-title { font-size: 2.4rem; line-height: 1.1; }
+    section { padding: 50px 5%; }
+    .modal-content { padding: 1.5rem 1rem; }
+    .modal-embed iframe { height: 220px; }
+    .work-grid { gap: 1rem; }
+    .stat-card { padding: 1rem 1.25rem; }
+    .stat-number { font-size: 1.6rem; }
+  }
+  /* Respect users who prefer less motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .hero::before, .hero::after, .about::before { animation: none !important; }
+    .marquee-track { animation: none !important; }
   }
 </style>
 </head>
@@ -1048,7 +1068,7 @@
     </div>
     <div class="stat-card fade-up" style="transition-delay:0.25s">
       <div class="stat-number">B2C &amp; B2B</div>
-      <div class="stat-label">Member, clinician &amp; partner audiences</div>
+      <div class="stat-label">Patient, clinician &amp; partner audiences</div>
     </div>
     <div class="stat-card fade-up" style="transition-delay:0.4s">
       <div class="stat-number">Full-funnel</div>
@@ -1061,12 +1081,12 @@
 <section class="about" id="about">
   <div>
     <p class="section-label">About</p>
-    <h2 class="section-title">Healthcare copy<br>with a <em>human heart</em></h2>
+    <h2 class="section-title">Marketing with a<br><em>human heart</em></h2>
     <p class="about-body">
       I'm a senior copywriter and content strategist specializing in <strong>behavioral health, telehealth, and wellness</strong>. For a decade, I've helped brands like Brightside Health and Amwell turn complex care into clear, compelling copy — from brand books and messaging frameworks to campaigns that move people to act.
     </p>
     <p class="about-body">
-      My work sits at the intersection of strategy and craft. I don't just write words — I build <strong>voice systems</strong>, lead cross-functional creative, and develop content that earns trust at the moments that matter most.
+      My work sits at the intersection of strategy and craft. I don't just write words — I build <strong>voice systems</strong>, lead cross-functional creative, and develop content that does the real work of moving people.
     </p>
     <div class="about-skills">
       <span class="skill-pill">Brand Voice</span>
@@ -1139,7 +1159,7 @@
       <div class="card-body">
         <div class="card-type">Brand &amp; Web Copy</div>
         <div class="card-title">Brightside Health Homepage Redesign</div>
-        <div class="card-desc">Led the copy for Brightside's homepage relaunch — the highest-trafficked, highest-stakes page on the site. Rewrote the hero, value prop, and section headers to land the company's full evolved offering without overwhelming first-time visitors.</div>
+        <div class="card-desc">Led the copy for Brightside's homepage relaunch — the highest-trafficked, highest-stakes page on the site. Rewrote the hero, value prop, and section headers to land the company's evolved offerings without overwhelming first-time visitors.</div>
       </div>
       <div class="card-footer">
         <span class="tag">Web Copy</span>
@@ -1213,7 +1233,7 @@
       <div class="card-visual v-sage">
         <div class="card-doc">WHITE PAPER</div>
         <div class="card-circle" style="width:200px;height:200px;background:#fff;bottom:-50px;left:-30px;"></div>
-        <div class="card-visual-label">Measure What Matters</div>
+        <div class="card-visual-label">Measure what matters</div>
       </div>
       <div class="card-body">
         <div class="card-type">Thought Leadership</div>
@@ -1236,7 +1256,7 @@
       <div class="card-body">
         <div class="card-type">Thought Leadership</div>
         <div class="card-title">The New IOP — Virtual Care White Paper</div>
-        <div class="card-desc">A thought leadership paper making the clinical and financial case for technology-enabled Intensive Outpatient Programs — from CEO letter through evidence base.</div>
+        <div class="card-desc">A thought leadership paper making the clinical and financial case for technology-enabled Intensive Outpatient Programs — from CEO letter through the evidence base.</div>
       </div>
       <div class="card-footer">
         <span class="tag">White Paper</span>
@@ -1266,7 +1286,7 @@
     </div>
     <a href="https://www.figma.com/proto/nnOPuCqvcDEPdvRTMVUXat/Homepage-Refresh---Brightside?node-id=2001-11640&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1" target="_blank" rel="noopener" class="modal-link">Open prototype in new tab →</a>
     <div class="modal-body" style="margin-top:1.75rem;">
-      <p>The Brightside Health homepage is the front door to the brand — and over the last few years, the company's offering had grown well beyond what the original page could carry. Therapy, psychiatry, Crisis Care, and a new IOP all needed a place to live without overwhelming a first-time visitor in a vulnerable moment.</p>
+      <p>The Brightside Health homepage is the front door to the brand — and over the last few years, the company's evolved offerings had grown well beyond what the original page could carry. Therapy, psychiatry, Crisis Care, and a new IOP all needed a place to live without overwhelming a first-time visitor in a vulnerable moment.</p>
       <p>I led the copy for the homepage redesign end-to-end: <strong>hero, value prop, section headers, proof points, and CTAs</strong>. Worked closely with design, product, growth, and brand to make sure the words and the experience said the same thing — and rewrote toward clarity in every round.</p>
       <p>The goal: a page that meets people where they are, signals legitimacy fast, and routes them to the right level of care without making them work for it.</p>
       <div class="modal-section">
@@ -1297,7 +1317,7 @@
       <p>I wrote the script and shaped storyboard direction with the creative team, leading with <strong>empathy and recognition</strong> before moving into clear, low-friction next steps. The spot needed to feel like a trustworthy neighbor, not a pitch — and clear the bar for both compliance and conversion.</p>
       <div class="modal-section">
         <p class="modal-section-label">My role</p>
-        <p style="margin:0;">Script, voiceover, on-screen copy, and creative direction in partnership with video producer.</p>
+        <p style="margin:0;">Concepting, script, and collaboration with creative director.</p>
       </div>
     </div>
   </div>
@@ -1323,7 +1343,7 @@
       <p>I shaped the message hierarchy, hero, value props, program description, and proof points to translate a clinically rigorous program into language patients and families could grasp at a glance. Worked alongside the IOP launch team — clinical, product, design, growth — to ship the page in time for launch and align it with the broader IOP narrative across white paper, sales collateral, and lifecycle.</p>
       <div class="modal-section">
         <p class="modal-section-label">My role</p>
-        <p style="margin:0;">Lead copywriter — content strategy, drafting, clinical &amp; legal review, design partnership.</p>
+        <p style="margin:0;">Lead copywriter — content strategy, drafting, clinical review, design partnership.</p>
       </div>
     </div>
   </div>
@@ -1360,7 +1380,7 @@
   <div class="modal-content">
     <a href="#work" class="modal-close" aria-label="Close">×</a>
     <p class="modal-eyebrow">Thought Leadership · Brightside Health</p>
-    <h3 class="modal-title">Measure What Matters: A Framework for Quality Mental Health Care</h3>
+    <h3 class="modal-title">Measure what matters: a framework for quality mental health care</h3>
     <div class="modal-meta">
       <span class="tag">White Paper</span>
       <span class="tag alt">B2B</span>
@@ -1368,12 +1388,12 @@
     </div>
     <div class="modal-body">
       <p>A 24-page white paper introducing the <strong>Mental Health Quality Scorecard (MHQS)</strong> — a 9-category, point-based framework health plans, health systems, and providers can use to evaluate the actual quality of mental health care, not just access to it.</p>
-      <p>I wrote the paper alongside Brightside's clinical and quality teams: structuring the argument, drafting the executive summary, translating internal scoring methodology into a story that stands up in front of payer and partner audiences, and grounding it in Brightside's own scorecard performance to walk the talk.</p>
-      <p>This is a foundation piece for enterprise sales conversations — the kind of asset that opens doors and reframes a conversation in the same meeting.</p>
+      <p>I wrote the paper alongside Brightside's clinical and commercial teams: structuring the argument, drafting the executive summary, translating internal scoring methodology into a story that stands up in front of payer and partner audiences, and grounding it in Brightside's own scorecard performance to walk the talk.</p>
+      <p>This is a foundational piece for enterprise sales conversations — the kind of asset that opens doors and reframes a conversation in the same meeting.</p>
       <a href="https://brightside.com/downloads/scorecards/Brightside-Mental-Health-Quality-Scorecard-Whitepaper.pdf" target="_blank" rel="noopener" class="modal-link" style="margin-top:1.25rem;">Read the white paper (PDF) →</a>
       <div class="modal-section">
         <p class="modal-section-label">My role</p>
-        <p style="margin:0;">Lead writer — outline, drafting, SME interviews, editing, design partnership.</p>
+        <p style="margin:0;">Copy, editing, design partnership, SME collaboration.</p>
       </div>
     </div>
   </div>
@@ -1405,7 +1425,7 @@
 
 <!-- QUOTE PULL -->
 <section class="quote-section">
-  <p class="quote-text">The best health copy doesn't just communicate — it earns trust exactly when someone needs it most.</p>
+  <p class="quote-text">Healthcare is confusing enough.<br>The copy shouldn't be.</p>
 </section>
 
 <!-- MARQUEE -->
@@ -1445,8 +1465,8 @@
     </div>
     <div class="spec-item fade-up" style="transition-delay:0.1s">
       <div class="spec-icon">✦</div>
-      <div class="spec-name">Behavioral Health Copy</div>
-      <div class="spec-desc">10 years writing with empathy for people navigating anxiety, depression, and mental healthcare decisions.</div>
+      <div class="spec-name">Healthcare Copy with Empathy</div>
+      <div class="spec-desc">A decade writing with empathy for people navigating anxiety, depression, and other healthcare decisions.</div>
     </div>
     <div class="spec-item fade-up" style="transition-delay:0.2s">
       <div class="spec-icon">✦</div>
@@ -1473,62 +1493,25 @@
 
 <!-- CONTACT -->
 <section class="contact" id="contact">
-  <div>
+  <div class="contact-inner">
     <p class="section-label">Contact</p>
     <h2 class="section-title">Let's create something <em>worth reading</em></h2>
-    <p class="section-intro" style="margin-bottom:2rem;">Whether you need a freelance copywriter, a brand voice overhaul, or a campaign built from scratch — I'd love to hear about it.</p>
-    <div class="contact-block">
-      <div class="contact-block-label">Email</div>
-      <a href="mailto:amkane14@gmail.com" class="contact-block-val">amkane14@gmail.com</a>
-    </div>
-    <div class="contact-block">
-      <div class="contact-block-label">Phone</div>
-      <a href="tel:5085602000" class="contact-block-val">508.560.2000</a>
-    </div>
-    <div class="contact-block">
-      <div class="contact-block-label">LinkedIn</div>
-      <a href="https://linkedin.com/in/ashley-kane" target="_blank" rel="noopener" class="contact-block-val">linkedin.com/in/ashley-kane</a>
-    </div>
-    <div class="contact-block">
-      <div class="contact-block-label">Portfolio</div>
-      <a href="https://ashleymkane.com" target="_blank" rel="noopener" class="contact-block-val">ashleymkane.com</a>
-    </div>
-  </div>
-
-  <div class="fade-up">
-    <form class="contact-form" action="mailto:amkane14@gmail.com" method="post" enctype="text/plain">
-      <div class="form-row">
-        <div class="form-field">
-          <label for="fname">First name</label>
-          <input type="text" id="fname" name="First name" placeholder="Jane" required>
-        </div>
-        <div class="form-field">
-          <label for="lname">Last name</label>
-          <input type="text" id="lname" name="Last name" placeholder="Smith">
-        </div>
+    <p class="section-intro" style="margin-bottom:2.5rem;">Whether you need a freelance copywriter, a brand voice overhaul, or a campaign built from scratch — I'd love to hear about it.</p>
+    <div class="contact-blocks">
+      <div class="contact-block">
+        <div class="contact-block-label">Email</div>
+        <a href="mailto:amkane14@gmail.com" class="contact-block-val">amkane14@gmail.com</a>
       </div>
-      <div class="form-field">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="Email" placeholder="jane@company.com" required>
+      <div class="contact-block">
+        <div class="contact-block-label">LinkedIn</div>
+        <a href="https://linkedin.com/in/ashley-kane" target="_blank" rel="noopener" class="contact-block-val">linkedin.com/in/ashley-kane</a>
       </div>
-      <div class="form-field">
-        <label for="project">Project type</label>
-        <select id="project" name="Project type">
-          <option value="">Select a project type…</option>
-          <option>Brand voice / messaging framework</option>
-          <option>Email campaign</option>
-          <option>Ad copy</option>
-          <option>Website copy</option>
-          <option>White paper / thought leadership</option>
-          <option>Other</option>
-        </select>
+      <div class="contact-block">
+        <div class="contact-block-label">Portfolio</div>
+        <a href="https://ashleymkane.com" target="_blank" rel="noopener" class="contact-block-val">ashleymkane.com</a>
       </div>
-      <div class="form-field">
-        <label for="message">Tell me about your project</label>
-        <textarea id="message" name="Message" placeholder="A little about your goals, timeline, and what you're looking for…"></textarea>
-      </div>
-      <button type="submit" class="btn-primary" style="align-self:flex-start;cursor:pointer;border:none;font-family:var(--sans);">Send message →</button>
-    </form>
+    </div>
+    <a href="mailto:amkane14@gmail.com" class="btn-primary" style="margin-top:2rem;letter-spacing:0.14em;text-transform:uppercase;">Contact me →</a>
   </div>
 </section>
 
